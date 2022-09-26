@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using ProEventos.API.Models;
-using ProEventos.API.Data;
-
 namespace ProEventos.API.Controllers
 {
     [ApiController]
