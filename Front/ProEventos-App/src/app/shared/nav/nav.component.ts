@@ -8,12 +8,9 @@ import { AccountService } from '../../services/account.service';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  isCollapsed = true;
+  isCollapsed: boolean = true;
 
-  constructor(
-    public accountService: AccountService,
-    private router: Router
-  ) {}
+  constructor(public accountService: AccountService, private router: Router) {}
 
   ngOnInit(): void {}
 
