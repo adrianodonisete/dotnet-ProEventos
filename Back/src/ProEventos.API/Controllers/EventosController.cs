@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using ProEventos.Domain;
+using ProEventos.Persistence;
+
 namespace ProEventos.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class EventosController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly ProEventosContext _context;
 
-        public EventosController(DataContext context)
+        public EventosController(ProEventosContext context)
         {
             _context = context;
         }
@@ -24,7 +27,7 @@ namespace ProEventos.API.Controllers
         [HttpGet("{id}")]
         public Evento GetById(int id)
         {
-            return _context.Eventos.FirstOrDefault(e => e.EventoId == id);
+            return _context.Eventos.FirstOrDefault(e => e.Id == id);
         }
 
         [HttpPost("{id}")]
