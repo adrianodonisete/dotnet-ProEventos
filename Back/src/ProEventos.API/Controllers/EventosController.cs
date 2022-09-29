@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using ProEventos.Domain;
-using ProEventos.Persistence;
+using ProEventos.Persistence.Context;
 
 namespace ProEventos.API.Controllers
 {
