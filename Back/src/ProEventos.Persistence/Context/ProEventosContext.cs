@@ -18,6 +18,16 @@ namespace ProEventos.Persistence.Context
         {
             mb.Entity<PalestranteEvento>()
                 .HasKey(pe => new { pe.EventoId, pe.PalestranteId });
+
+            mb.Entity<Evento>()
+                .HasMany(e => e.RedesSociais)
+                .WithOne(rede => rede.Evento)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            mb.Entity<Palestrante>()
+                .HasMany(e => e.RedesSociais)
+                .WithOne(rede => rede.Palestrante)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

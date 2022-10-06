@@ -1,5 +1,5 @@
 import { RedeSocial } from './RedeSocial';
-import { Lote } from "./Lote";
+import { Lote } from './Lote';
 import { Palestrante } from './Palestrante';
 
 export interface Evento {

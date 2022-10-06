@@ -11,8 +11,8 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<User>(1);
   public currentUser$ = this.currentUserSource.asObservable();
 
-  baseUrl = environment.apiURL + 'api/account/'
-  constructor(private http: HttpClient) { }
+  baseUrl = environment.apiURL + 'api/account/';
+  constructor(private http: HttpClient) {}
 
   public login(model: any): Observable<void> {
     return this.http.post<User>(this.baseUrl + 'login', model).pipe(
@@ -20,7 +20,7 @@ export class AccountService {
       map((response: User) => {
         const user = response;
         if (user) {
-          this.setCurrentUser(user)
+          this.setCurrentUser(user);
         }
       })
     );
@@ -34,10 +34,9 @@ export class AccountService {
     return this.http.put<UserUpdate>(this.baseUrl + 'updateUser', model).pipe(
       take(1),
       map((user: UserUpdate) => {
-          this.setCurrentUser(user);
-        }
-      )
-    )
+        this.setCurrentUser(user);
+      })
+    );
   }
 
   public register(model: any): Observable<void> {
@@ -46,7 +45,7 @@ export class AccountService {
       map((response: User) => {
         const user = response;
         if (user) {
-          this.setCurrentUser(user)
+          this.setCurrentUser(user);
         }
       })
     );

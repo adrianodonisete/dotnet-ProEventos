@@ -96,6 +96,12 @@ namespace ProEventos.API.Controllers
         {
             try
             {
+                var eventoCheck = await _service.GetEventoByIdAsync(id, true);
+                if (eventoCheck == null)
+                {
+                    return NotFound("Nenhum evento encontrado com esse ID");
+                }
+
                 var evento = await _service.UpdateEvento(id, model);
                 if (evento == null)
                 {
@@ -105,7 +111,7 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, $"Erro: {e.Message}");
+                return BadRequest($"Erro: {e.Message}");
             }
         }
 

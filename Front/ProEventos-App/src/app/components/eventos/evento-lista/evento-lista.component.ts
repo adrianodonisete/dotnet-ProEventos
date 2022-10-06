@@ -3,12 +3,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { Evento } from '@app/models/Evento';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+
 import { EventoService } from '@app/services/evento.service';
 import { environment } from '@environments/environment';
 import { PaginatedResult, Pagination } from '@app/models/Pagination';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { Evento } from '@app/models/Evento';
 
 @Component({
   selector: 'app-evento-lista',
@@ -26,6 +27,24 @@ export class EventoListaComponent implements OnInit {
   public exibirImagem = true;
 
   termoBuscaChanged: Subject<string> = new Subject<string>();
+
+  constructor(
+    private eventoService: EventoService,
+    private modalService: BsModalService,
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService,
+    private router: Router
+  ) {}
+
+  public ngOnInit(): void {
+    this.pagination = {
+      currentPage: 1,
+      itemsPerPage: 3,
+      totalItems: 1,
+    } as Pagination;
+
+    this.carregarEventos();
+  }
 
   public filtrarEventos(evt: any): void {
     if (this.termoBuscaChanged.observers.length === 0) {
@@ -53,24 +72,6 @@ export class EventoListaComponent implements OnInit {
         });
     }
     this.termoBuscaChanged.next(evt.value);
-  }
-
-  constructor(
-    private eventoService: EventoService,
-    private modalService: BsModalService,
-    private toastr: ToastrService,
-    private spinner: NgxSpinnerService,
-    private router: Router
-  ) {}
-
-  public ngOnInit(): void {
-    this.pagination = {
-      currentPage: 1,
-      itemsPerPage: 3,
-      totalItems: 1,
-    } as Pagination;
-
-    this.carregarEventos();
   }
 
   public alterarImagem(): void {
